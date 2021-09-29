@@ -1,0 +1,57 @@
+{% extends './base.html' %}
+
+{% block content %}
+    <section class="">
+        <div class="container px-5 py-10 mx-auto">
+            <div class="">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div {% if message.tags %} class="alert alert-{{message.tags}} py-2 text-center text-green-500" {% endif %}> {{name|capfirst}} {{message}} </div>
+                    {% endfor %}
+                {% endif %}
+                <div class="flex justify-between p-2">
+                    <span class="bg-yellow-600 text-black font-bold pl-4 text-2xl rounded mx-4 pt-2 w-full">User List</span>
+                    <a class="bg-blue-500 rounded mx-4 px-10 py-4" href="{% url 'create' %}">Add</a>
+                </div>
+                <form action="" method="POST" novalidate>
+                    {% csrf_token %}
+                    {% if form.non_field_errors %}
+                        {% for error in form.non_field_errors %}
+                            <p class='alert alert-danger py-2'> {{error}} </p>
+                        {% endfor %}
+                    {% endif %}
+
+                    {% for item in user %}
+                        <div class="p-4">
+                            <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden bg-gray-700">
+                                <div class="p-6">
+                                    <h2 class="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">{{ item.name|capfirst }}'s details</h2>
+                                    <hr class="border-gray-400">
+                                    <div>
+                                        <small class="pr-14">Name:</small>
+                                        <small>{{ item.name }}</small>
+                                    </div>
+                                    <div>
+                                        <small class="pr-16">Dob:</small>
+                                        <small>{{ item.date_of_birth }}</small>
+                                    </div>
+                                    <div>
+                                        <small class="pr-14">Email:</small>
+                                        <small>{{ item.email }}</small>
+                                    </div>
+                                    <div>
+                                        <small class="pr-1">Phone number:</small>
+                                        <small>{{ item.phone_number }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <div class="text-center text-xl">No data found.</div>
+                    {% endfor %}
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
+

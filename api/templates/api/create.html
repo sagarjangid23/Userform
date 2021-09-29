@@ -1,0 +1,38 @@
+{% extends './base.html' %}
+
+{% block content %}
+    <section class="">
+        <div class="container px-5 py-10 mx-auto">
+            <div class="">
+                <div class="flex justify-between p-2">
+                    <span class="bg-yellow-600 text-black font-bold pl-4 text-2xl rounded mx-4 pt-2 w-full">Add new user</span>
+                    <a class="bg-blue-500 rounded mx-4 px-10 py-4" href="{% url 'list' %}">Userlist</a>
+                </div>
+                <form action="" method="POST" novalidate>
+                    {% csrf_token %}
+                    {% if form.non_field_errors %}
+                        {% for error in form.non_field_errors %}
+                            <p class='text-red-500 py-2'> {{error}} </p><br><br>
+                        {% endfor %}
+                    {% endif %}
+
+                    
+                    <div class="p-4">
+                        <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden bg-gray-700">
+                            <div class="p-6">
+                                {% for item in form %}
+                                    <small class="text-xl">{{item.label_tag}}</small><br>
+                                    <small class="text-black">{{item}}</small><br>
+                                    <small class="text-red-500 mb-5">{{item.errors|striptags}}<br></small>
+                                {% endfor %}
+                                <button class="bg-blue-500 rounded px-4 py-3 pr-2" type="submit">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
+
