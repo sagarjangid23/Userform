@@ -5,8 +5,6 @@ Django application with tailwind CSS: https://userformtask.herokuapp.com/
 
 
 
-
-
 If you are cloning this project please edit settings.py file with these:
 
 SECRET_KEY = "genrates your secret key"
